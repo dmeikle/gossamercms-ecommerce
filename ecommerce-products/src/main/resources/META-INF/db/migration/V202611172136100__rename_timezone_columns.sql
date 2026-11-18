@@ -1,0 +1,43 @@
+ALTER TABLE "ecommerce_carts"
+ALTER COLUMN "expiresAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" SET DEFAULT NOW(),
+    ALTER COLUMN "createdAt" TYPE TIMESTAMP,
+    ALTER COLUMN "createdAt" SET DEFAULT NOW();
+
+ALTER TABLE "ecommerce_purchases"
+ALTER COLUMN "deletedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" SET DEFAULT NOW(),
+    ALTER COLUMN "createdAt" TYPE TIMESTAMP,
+    ALTER COLUMN "createdAt" SET DEFAULT NOW();
+
+ALTER TABLE "ecommerce_categories"
+ALTER COLUMN "updatedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" SET DEFAULT NOW(),
+    ALTER COLUMN "createdAt" TYPE TIMESTAMP,
+    ALTER COLUMN "createdAt" SET DEFAULT NOW();
+
+ALTER TABLE "ecommerce_product_categories"
+ALTER COLUMN "updatedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" SET DEFAULT NOW(),
+    ALTER COLUMN "createdAt" TYPE TIMESTAMP,
+    ALTER COLUMN "createdAt" SET DEFAULT NOW();
+
+ALTER TABLE "ecommerce_products"
+ALTER COLUMN "updatedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" SET DEFAULT NOW(),
+    ALTER COLUMN "createdAt" TYPE TIMESTAMP,
+    ALTER COLUMN "createdAt" SET DEFAULT NOW();
+
+ALTER TABLE "ecommerce_cart_items"
+ALTER COLUMN "updatedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" SET DEFAULT NOW(),
+    ALTER COLUMN "createdAt" TYPE TIMESTAMP,
+    ALTER COLUMN "createdAt" SET DEFAULT NOW();
+
+ALTER TABLE "ecommerce_purchase_items"
+ALTER COLUMN "updatedAt" TYPE TIMESTAMP,
+    ALTER COLUMN "updatedAt" SET DEFAULT NOW(),
+    ALTER COLUMN "createdAt" TYPE TIMESTAMP,
+    ALTER COLUMN "createdAt" SET DEFAULT NOW();
