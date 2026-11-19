@@ -21,6 +21,7 @@ public class PurchaseItemDto implements DtoWithId{
     private UUID id;
     private UUID purchaseId;
     private UUID productId;
+    private String productName;
     private Integer quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
@@ -35,6 +36,7 @@ public class PurchaseItemDto implements DtoWithId{
             .id(id)
             .purchaseId(purchaseId)
             .productId(productId)
+            .productName(productName)
             .quantity(quantity)
             .unitPrice(unitPrice)
             .totalPrice(totalPrice)

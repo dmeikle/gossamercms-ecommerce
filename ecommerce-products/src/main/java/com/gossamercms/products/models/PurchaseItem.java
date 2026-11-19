@@ -23,6 +23,7 @@ public class PurchaseItem implements BaseModel{
     private UUID id;
     private UUID purchaseId;
     private UUID productId;
+    private String productName;
     private Integer quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
@@ -38,6 +39,7 @@ public class PurchaseItem implements BaseModel{
             .purchaseId(purchaseId)
             .productId(productId)
             .quantity(quantity)
+            .productName(productName)
             .unitPrice(unitPrice)
             .totalPrice(totalPrice)
             .currency(currency)
@@ -53,6 +55,7 @@ public static final ModelMeta META = ModelMeta.builderWithId("ecommerce_purchase
     .column("purchaseId", UUID.class)
     .column("productId", UUID.class)
     .column("quantity", Integer.class)
+    .column("productName", String.class)
     .column("unitPrice", BigDecimal.class)
     .column("totalPrice", BigDecimal.class)
     .column("currency", String.class, 3)

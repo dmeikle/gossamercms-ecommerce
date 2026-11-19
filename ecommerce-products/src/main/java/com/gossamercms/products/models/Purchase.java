@@ -26,6 +26,11 @@ public class Purchase implements BaseModel{
     private String status;
     private BigDecimal totalAmount;
     private String currency;
+
+    private BigDecimal subtotal;
+    private BigDecimal discountTotal;
+    private BigDecimal shippingTotal;
+    private BigDecimal taxTotal;
     @JsonColumn
     private Map<String, Object> metadata;
     private UUID createdBy;
@@ -43,6 +48,10 @@ public class Purchase implements BaseModel{
             .status(status)
             .totalAmount(totalAmount)
             .currency(currency)
+            .subtotal(subtotal)
+            .discountTotal(discountTotal)
+            .shippingTotal(shippingTotal)
+            .taxTotal(taxTotal)
             .metadata(metadata)
             .createdBy(createdBy)
             .createdAt(createdAt)
@@ -61,6 +70,10 @@ public static final ModelMeta META = ModelMeta.builderWithId("ecommerce_purchase
     .column("status", String.class, 20)
     .column("totalAmount", BigDecimal.class)
     .column("currency", String.class, 3)
+    .column("subtotal", BigDecimal.class)
+    .column("discountTotal", BigDecimal.class)
+    .column("shippingTotal", BigDecimal.class)
+    .column("taxTotal", BigDecimal.class)
     .column("metadata", Map.class)
     .column("createdBy", UUID.class)
     .column("createdAt", Instant.class)

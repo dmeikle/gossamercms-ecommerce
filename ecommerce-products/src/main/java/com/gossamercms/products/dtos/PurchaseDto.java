@@ -24,6 +24,12 @@ public class PurchaseDto implements DtoWithId{
     private String status;
     private BigDecimal totalAmount;
     private String currency;
+
+    private BigDecimal subtotal;
+    private BigDecimal discountTotal;
+    private BigDecimal shippingTotal;
+    private BigDecimal taxTotal;
+
     @JsonColumn
     private Map<String, Object> metadata;
     private UUID createdBy;
@@ -39,6 +45,10 @@ public class PurchaseDto implements DtoWithId{
             .purchaseNumber(purchaseNumber)
             .customerContextId(customerContextId)
             .status(status)
+            .subtotal(subtotal)
+            .discountTotal(discountTotal)
+            .shippingTotal(shippingTotal)
+            .taxTotal(taxTotal)
             .totalAmount(totalAmount)
             .currency(currency)
             .metadata(metadata)

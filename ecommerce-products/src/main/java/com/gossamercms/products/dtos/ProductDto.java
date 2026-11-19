@@ -26,6 +26,7 @@ public class ProductDto implements DtoWithId{
     private BigDecimal price;
     private String currency;
     private String status;
+    private String taxCode;
     @JsonColumn
     private Map<String, Object> metadata;
     private String thumbnailUrl;
@@ -44,6 +45,7 @@ public class ProductDto implements DtoWithId{
             .price(price)
             .currency(currency)
             .status(status)
+            .taxCode(taxCode)
             .metadata(metadata)
             .thumbnailUrl(thumbnailUrl)
             .createdAt(createdAt)

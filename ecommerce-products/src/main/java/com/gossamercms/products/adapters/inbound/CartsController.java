@@ -9,11 +9,14 @@ import com.gossamercms.products.dtos.CartDto;
 import com.gossamercms.products.dtos.ProductDto;
 import com.gossamercms.products.dtos.requests.CartItemRequest;
 import com.gossamercms.products.dtos.requests.CartRequest;
+import com.gossamercms.products.dtos.requests.CheckoutRequest;
 import com.gossamercms.products.dtos.responses.CartResponse;
 import com.gossamercms.products.dtos.responses.CartListResponse;
+import com.gossamercms.products.dtos.responses.CheckoutResponse;
 import com.gossamercms.products.handlers.CartsHandler;
 import com.gossamercms.products.models.Cart;
 import com.gossamercms.products.services.CartsService;
+import com.gossamercms.products.services.CheckoutService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -30,11 +33,14 @@ public class CartsController extends TypedBaseController<Cart, CartDto, CartRequ
     private static final String GUEST_CART_SESSION_ID = CartsController.class.getName() + ".guestCartSessionId";
 
     private final CartsService cartsService;
+    private final CheckoutService checkoutService;
 
-    public CartsController(CartsHandler handler, CartsService cartsService) {
+    public CartsController(CartsHandler handler, CartsService cartsService, CheckoutService checkoutService) {
         super(handler, CartListResponse.class);
         this.cartsService = cartsService;
+        this.checkoutService = checkoutService;
     }
+
     @Override
     protected CartDto toDto(CartRequest request) {
         return CartDto.builder()
@@ -87,6 +93,14 @@ public class CartsController extends TypedBaseController<Cart, CartDto, CartRequ
             session.setAttribute(GUEST_CART_SESSION_ID, sessionId);
         }
         return sessionId == null ? null : new GuestCartUser(sessionId);
+    }
+
+    @PostMapping("/checkout")
+    public ApiResponse<CheckoutResponse> checkout(@CurrentUser CurrentJwtUser jwtUser,
+                                                  @RequestBody CheckoutRequest request,
+                                                  HttpServletRequest servletRequest) {
+
+        return ApiResponse.ok(checkoutService.checkout(jwtUser, request));
     }
 
     private record GuestCartUser(String sessionId) implements CurrentJwtUser {

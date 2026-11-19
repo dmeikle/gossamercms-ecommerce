@@ -28,6 +28,7 @@ public class Product implements BaseModel{
     private BigDecimal price;
     private String currency;
     private String status;
+    private String taxCode;
     @JsonColumn
     private Map<String, Object> metadata;
     private String thumbnailUrl;
@@ -46,6 +47,7 @@ public class Product implements BaseModel{
             .price(price)
             .currency(currency)
             .status(status)
+            .taxCode(taxCode)
             .metadata(metadata)
             .thumbnailUrl(thumbnailUrl)
             .createdAt(createdAt)
@@ -65,6 +67,7 @@ public static final ModelMeta META = ModelMeta.builderWithId("ecommerce_products
     .column("price", BigDecimal.class)
     .column("currency", String.class, 3)
     .column("status", String.class, 20)
+    .column("taxCode", String.class, 50)
     .column("metadata", Map.class)
     .column("thumbnailUrl", String.class)
     .column("createdAt", Instant.class)

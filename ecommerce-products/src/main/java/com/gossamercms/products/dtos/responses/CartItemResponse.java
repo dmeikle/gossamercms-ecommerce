@@ -24,6 +24,8 @@ public class CartItemResponse {
     private Instant createdAt;
     private BigDecimal unitPrice;
     private BigDecimal subtotal;
+    private String taxCode;
+
     //using dto because we need the id also
     private ProductDto product;
 

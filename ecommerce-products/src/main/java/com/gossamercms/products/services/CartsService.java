@@ -11,10 +11,12 @@ import com.gossamercms.products.dtos.ProductDto;
 import com.gossamercms.products.dtos.requests.CartItemRequest;
 import com.gossamercms.products.dtos.responses.CartItemResponse;
 import com.gossamercms.products.dtos.responses.CartResponse;
+import com.gossamercms.products.dtos.responses.CartSummaryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,11 +57,32 @@ public class CartsService {
             items.addAll(result.list());
         } while (page++ < result.totalPages());
 
+        BigDecimal subtotal = items.stream()
+                .map(CartItemResponse::getSubtotal)
+                .filter(java.util.Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal discountTotal = BigDecimal.ZERO;
+        BigDecimal shippingTotal = BigDecimal.ZERO;
+        BigDecimal taxTotal = BigDecimal.ZERO;
+        BigDecimal grandTotal = subtotal.subtract(discountTotal)
+                .add(shippingTotal)
+                .add(taxTotal);
+
         return CartResponse.builder()
                 .id(cart.getId())
+                .summary(CartSummaryResponse.builder()
+                        .currency("CAD")
+                        .discountTotal(discountTotal)
+                        .grandTotal(grandTotal)
+                        .itemCount(items.size())
+                        .shippingTotal(shippingTotal)
+                        .subtotal(subtotal)
+                        .taxTotal(taxTotal)
+                        .build())
                 .items(items)
                 .build();
     }
+
 
     public CartResponse addToCart(CurrentJwtUser jwtUser, ProductDto product, CartItemRequest request) {
         //first check if the user has a cart, if not create one
@@ -77,9 +100,16 @@ public class CartsService {
     private CartDto getOrCreateCart(CurrentJwtUser jwtUser) {
         UUID userContextId = jwtUser.getUserContextId();
         String sessionId = jwtUser.getSessionId();
-        CartDto cart = userContextId == null
-                ? cartsDbService.findGuestCart(requireSessionId(sessionId))
-                : cartsDbService.get(Map.of("userContextId", userContextId));
+        CartDto cart = null;
+        try {
+            if (userContextId == null) {
+                cart = cartsDbService.findGuestCart(requireSessionId(sessionId));
+            } else {
+                cart = cartsDbService.get(Map.of("userContextId", userContextId));
+            }
+        } catch (Exception e) {
+            //log the exception
+        }
         if (cart == null || cart.getId() == null) {
             cart = cartsDbService.create(userContextId,
                     CartDto.builder()

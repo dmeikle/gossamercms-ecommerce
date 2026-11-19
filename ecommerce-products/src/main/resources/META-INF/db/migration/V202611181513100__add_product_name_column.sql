@@ -1,0 +1,1 @@
+ALTER TABLE ecommerce_purchase_items ADD COLUMN "productName" VARCHAR(255);

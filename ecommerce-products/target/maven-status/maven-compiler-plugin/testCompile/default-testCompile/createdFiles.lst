@@ -1,0 +1,3 @@
+com/gossamercms/products/services/CheckoutServiceTest.class
+com/gossamercms/products/services/PurchasePaymentCompletionServiceTest.class
+com/gossamercms/products/data/PurchasePaymentsDbServiceTest.class

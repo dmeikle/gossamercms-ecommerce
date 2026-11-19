@@ -1,0 +1,1 @@
+ALTER table ecommerce_products ADD COLUMN taxCode VARCHAR(50);

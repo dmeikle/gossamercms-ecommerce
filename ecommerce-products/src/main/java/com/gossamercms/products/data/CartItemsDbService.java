@@ -74,6 +74,7 @@ public class CartItemsDbService extends BaseDbService<CartItem, CartItemDto> {
                             .sku(rs.getString("sku"))
                             .description(rs.getString("description"))
                             .price(price)
+                            .taxCode(rs.getString("taxCode"))
                             .status(rs.getString("status"))
                             .metadata(JsonbHelper.fromJsonb(rs.getObject("metadata"), Map.class))
                             .thumbnailUrl(rs.getString("thumbnailUrl"))
